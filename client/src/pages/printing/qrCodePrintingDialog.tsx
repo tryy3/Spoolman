@@ -166,8 +166,9 @@ const QRCodePrintingDialog: React.FC<QRCodePrintingDialogProps> = ({
             }
 
             .print-page .print-qrcode-container {
-              max-width: ${showContent ? "50%" : "100%"};
+              max-width: ${showContent ? "100%" : "100%"};
               display: flex;
+              flex: 3;
             }
 
             .print-page .print-qrcode {
@@ -181,6 +182,7 @@ const QRCodePrintingDialog: React.FC<QRCodePrintingDialogProps> = ({
               font-size: ${textSize}mm;
               color: #000;
               overflow: hidden;
+              flex: 2;
             }
 
             .print-page canvas, .print-page svg {

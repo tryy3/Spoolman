@@ -84,6 +84,7 @@ const allColumns: (keyof ISpoolCollapsed & string)[] = [
   "price",
   "used_weight",
   "remaining_weight",
+  "spool_weight",
   "used_length",
   "remaining_length",
   "location",
@@ -310,6 +311,7 @@ export const SpoolList: React.FC<IResourceComponentsProps> = () => {
               selectable: true,
               multiple: true,
               onDeselect: (keys) => {
+                console.log("onDeselect", keys);
                 setShowColumns(keys.selectedKeys);
               },
               onSelect: (keys) => {
@@ -401,6 +403,15 @@ export const SpoolList: React.FC<IResourceComponentsProps> = () => {
           NumberColumn({
             ...commonProps,
             id: "remaining_weight",
+            i18ncat: "spool",
+            unit: "g",
+            maxDecimals: 0,
+            defaultText: t("unknown"),
+            width: 110,
+          }),
+          NumberColumn({
+            ...commonProps,
+            id: "spool_weight",
             i18ncat: "spool",
             unit: "g",
             maxDecimals: 0,

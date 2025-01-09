@@ -304,7 +304,7 @@ Spool Weight: {filament.spool_weight} g
           label: (
             <p
               style={{
-                padding: "1mm 1mm 1mm 0",
+                padding: "0",
                 margin: 0,
                 whiteSpace: "pre-wrap",
               }}

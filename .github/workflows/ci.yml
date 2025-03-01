@@ -142,8 +142,8 @@ jobs:
           context: .
           tags: ${{ env.IMAGE_NAME }}:test
           outputs: type=docker,dest=/tmp/spoolman.tar
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64,image-manifest=true
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64,mode=max,image-manifest=true
 
       # Separate build for pull requests since PRs dont have access to store cache
       - name: Build Spoolman (PR)
@@ -153,7 +153,7 @@ jobs:
           context: .
           tags: ${{ env.IMAGE_NAME }}:test
           outputs: type=docker,dest=/tmp/spoolman.tar
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64,image-manifest=true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.4.0
@@ -194,8 +194,8 @@ jobs:
           context: ./tests_integration
           tags: ${{ env.IMAGE_NAME }}-tester:latest
           outputs: type=docker,dest=/tmp/spoolman-tester.tar
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-tester
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-tester,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-tester,image-manifest=true
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-tester,mode=max,image-manifest=true
 
       # Separate build for pull requests since PRs dont have access to store cache
       - name: Build Spoolman Tester (PR)
@@ -205,7 +205,7 @@ jobs:
           context: ./tests_integration
           tags: ${{ env.IMAGE_NAME }}-tester:latest
           outputs: type=docker,dest=/tmp/spoolman-tester.tar
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-tester
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-tester,image-manifest=true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.4.0
@@ -287,8 +287,8 @@ jobs:
         with:
           context: .
           platforms: linux/arm64
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-arm64
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-arm64,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-arm64,image-manifest=true
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-arm64,mode=max,image-manifest=true
   #
   # Build arm/v7 image
   # Don't run this for pull requests
@@ -334,8 +334,8 @@ jobs:
         with:
           context: .
           platforms: linux/arm/v7
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-armv7
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-armv7,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-armv7,image-manifest=true
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-armv7,mode=max,image-manifest=true
   #
   # Release image if tests pass
   # Don't run this for pull requests
@@ -404,9 +404,9 @@ jobs:
             GIT_COMMIT
             BUILD_DATE
           cache-from: |
-            type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64
-            type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-arm64
-            type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-armv7
+            type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-amd64,image-manifest=true
+            type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-arm64,image-manifest=true
+            type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache-armv7,image-manifest=true
   #
   # Create Github Release if CI was triggered by a tag
   #

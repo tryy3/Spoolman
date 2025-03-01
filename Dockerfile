@@ -34,7 +34,7 @@ COPY --chown=app:app README.md /home/app/spoolman/
 
 FROM python:3.12-bookworm as python-runner
 
-LABEL org.opencontainers.image.source=https://github.com/Donkie/Spoolman
+LABEL org.opencontainers.image.source=https://github.com/tryy3/Spoolman
 LABEL org.opencontainers.image.description="Keep track of your inventory of 3D-printer filament spools."
 LABEL org.opencontainers.image.licenses=MIT
 
